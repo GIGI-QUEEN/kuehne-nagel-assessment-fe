@@ -9,8 +9,6 @@ import {
   tableCellClasses,
   TableBody,
   styled,
-  CircularProgress,
-  Modal,
 } from "@mui/material"
 import { SingleTableRow } from "./SingleTableRow"
 import { Box } from "@mui/system"
@@ -29,9 +27,8 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 const ShipmentsTable = () => {
   const { shipments, setShipments } = useShipments()
+  const [openDeleteModal, setOpenDeleteModal] = useState(false)
   const [singleShipment, setSingleShipment] = useState(null)
-  //console.log(shipments)
-  console.log(singleShipment)
   return (
     <Box>
       <TableContainer sx={{ maxHeight: 800 }}>
@@ -41,9 +38,17 @@ const ShipmentsTable = () => {
             shipments={shipments}
             setShipments={setShipments}
             setSingleShipment={setSingleShipment}
+            setOpenDeleteModal={setOpenDeleteModal}
           />
         </Table>
       </TableContainer>
+      <DeleteModal
+        open={openDeleteModal}
+        setOpenDeleteModal={setOpenDeleteModal}
+        singleShipment={singleShipment}
+        shipments={shipments}
+        setShipments={setShipments}
+      />
     </Box>
   )
 }
@@ -64,7 +69,12 @@ const HeadOfTable = () => {
   )
 }
 
-const BodyOfTable = ({ shipments, setShipments, setSingleShipment }) => {
+const BodyOfTable = ({
+  shipments,
+  setShipments,
+  setSingleShipment,
+  setOpenDeleteModal,
+}) => {
   return (
     <TableBody>
       {shipments?.map((shipment) => (
@@ -74,6 +84,7 @@ const BodyOfTable = ({ shipments, setShipments, setSingleShipment }) => {
           shipments={shipments}
           setShipments={setShipments}
           setSingleShipment={setSingleShipment}
+          setOpenDeleteModal={setOpenDeleteModal}
         />
       ))}
     </TableBody>

@@ -12,10 +12,28 @@ const style = {
   p: 4,
 }
 
-export const DeleteModal = ({}) => {
+export const DeleteModal = ({
+  open,
+  setOpenDeleteModal,
+  singleShipment,
+  shipments,
+  setShipments,
+}) => {
+  const handleDelete = (e) => {
+    e.preventDefault()
+    const filteredShipments = shipments.filter(
+      (s) => s.orderNo !== singleShipment.orderNo
+    )
+    handleClose()
+    setShipments(filteredShipments)
+  }
+  const handleClose = () => {
+    setOpenDeleteModal(false)
+  }
   return (
     <div>
       <Modal
+        open={open}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
@@ -23,6 +41,8 @@ export const DeleteModal = ({}) => {
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Are you sure you want to delete shipment info?
           </Typography>
+          <Button onClick={handleClose}>cancel</Button>
+          <Button onClick={handleDelete}>delete</Button>
         </Box>
       </Modal>
     </div>

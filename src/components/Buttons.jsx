@@ -8,6 +8,7 @@ export const Buttons = ({
   shipments,
   setShipments,
   setSingleShipment,
+  setOpenDeleteModal,
 }) => {
   return (
     <Box sx={{ display: "flex", gap: 1 }}>
@@ -19,28 +20,26 @@ export const Buttons = ({
         shipment={shipment}
         shipments={shipments}
         setShipments={setShipments}
+        setOpenDeleteModal={setOpenDeleteModal}
+        setSingleShipment={setSingleShipment}
       />
     </Box>
   )
 }
 
-export const DeleteButton = ({ shipment, shipments, setShipments }) => {
-  const handleRowDelete = (e) => {
+export const DeleteButton = ({
+  shipment,
+  setOpenDeleteModal,
+  setSingleShipment,
+}) => {
+  const handleModal = (e) => {
     e.preventDefault()
-    console.log(shipments)
-    console.log(shipment.orderNo)
-    const filteredShipments = shipments.filter(
-      (s) => s.orderNo !== shipment.orderNo
-    )
-    setShipments(filteredShipments)
-    console.log(filteredShipments)
+    setOpenDeleteModal(true)
+    setSingleShipment(shipment)
   }
 
   return (
-    <Button
-      sx={{ backgroundColor: "#f77777" }}
-      onClick={(e) => handleRowDelete(e)}
-    >
+    <Button sx={{ backgroundColor: "#f77777" }} onClick={(e) => handleModal(e)}>
       <DeleteForeverOutlinedIcon style={{ color: "#fff" }} />
     </Button>
   )
