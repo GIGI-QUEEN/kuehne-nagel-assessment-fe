@@ -13,6 +13,7 @@ import {
 import { SingleTableRow } from "./SingleTableRow"
 import { Box } from "@mui/system"
 import { DeleteModal } from "./DeleteModal"
+import DetailsPanel from "./DetailsPanel"
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: "#292929",
@@ -29,6 +30,9 @@ const ShipmentsTable = () => {
   const { shipments, setShipments } = useShipments()
   const [openDeleteModal, setOpenDeleteModal] = useState(false)
   const [singleShipment, setSingleShipment] = useState(null)
+  const [openDetails, setOpenDetails] = useState(false)
+  //console.log(singleShipment)
+  //console.log(singleShipment)
   return (
     <Box>
       <TableContainer sx={{ maxHeight: 800 }}>
@@ -39,9 +43,18 @@ const ShipmentsTable = () => {
             setShipments={setShipments}
             setSingleShipment={setSingleShipment}
             setOpenDeleteModal={setOpenDeleteModal}
+            setOpenDetails={setOpenDetails}
           />
         </Table>
       </TableContainer>
+      <DetailsPanel
+        open={openDetails}
+        setOpenDetails={setOpenDetails}
+        singleShipment={singleShipment}
+        setSingleShipment={setSingleShipment}
+        shipments={shipments}
+        setShipments={setShipments}
+      />
       <DeleteModal
         open={openDeleteModal}
         setOpenDeleteModal={setOpenDeleteModal}
@@ -74,17 +87,19 @@ const BodyOfTable = ({
   setShipments,
   setSingleShipment,
   setOpenDeleteModal,
+  setOpenDetails,
 }) => {
   return (
     <TableBody>
-      {shipments?.map((shipment) => (
+      {shipments?.map((shipment, index) => (
         <SingleTableRow
-          key={shipment.orderNo}
+          key={index}
           shipment={shipment}
           shipments={shipments}
           setShipments={setShipments}
           setSingleShipment={setSingleShipment}
           setOpenDeleteModal={setOpenDeleteModal}
+          setOpenDetails={setOpenDetails}
         />
       ))}
     </TableBody>

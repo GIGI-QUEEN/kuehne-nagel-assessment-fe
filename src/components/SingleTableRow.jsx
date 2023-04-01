@@ -28,6 +28,7 @@ export const SingleTableRow = ({
   setShipments,
   setSingleShipment,
   setOpenDeleteModal,
+  setOpenDetails,
 }) => {
   return (
     <>
@@ -45,6 +46,7 @@ export const SingleTableRow = ({
             setShipments={setShipments}
             setSingleShipment={setSingleShipment}
             setOpenDeleteModal={setOpenDeleteModal}
+            setOpenDetails={setOpenDetails}
           />
         </StyledTableCell>
       </StyledTableRow>

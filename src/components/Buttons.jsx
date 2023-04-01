@@ -9,12 +9,14 @@ export const Buttons = ({
   setShipments,
   setSingleShipment,
   setOpenDeleteModal,
+  setOpenDetails,
 }) => {
   return (
     <Box sx={{ display: "flex", gap: 1 }}>
       <DetailsButton
         shipment={shipment}
         setSingleShipment={setSingleShipment}
+        setOpenDetails={setOpenDetails}
       />
       <DeleteButton
         shipment={shipment}
@@ -45,10 +47,17 @@ export const DeleteButton = ({
   )
 }
 
-export const DetailsButton = ({ shipment, setSingleShipment }) => {
+export const DetailsButton = ({
+  shipment,
+  setSingleShipment,
+  setOpenDetails,
+}) => {
   return (
     <Button
-      onClick={() => setSingleShipment(shipment)}
+      onClick={() => {
+        setSingleShipment(shipment)
+        setOpenDetails(true)
+      }}
       sx={{ backgroundColor: "#9cc2ff" }}
     >
       <InfoOutlinedIcon style={{ color: "#fff" }} />
