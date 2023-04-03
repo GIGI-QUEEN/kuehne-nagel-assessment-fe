@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Modal, Box, Typography, Button, TextField } from "@mui/material"
 
 const style = {
@@ -34,23 +34,16 @@ const DetailsPanel = ({
   if (singleShipment) {
     entries = Object.entries(singleShipment)
   }
-  /*   let idx = shipments?.indexOf(singleShipment)
-  // console.log(idx)
-  console.log("IDX 1", idx) */
 
   const saveChanges = () => {
     const idx = shipments?.indexOf(singleShipment)
     const filtered = shipments?.filter((s) => s !== singleShipment)
     filtered?.splice(idx, 0, mutated)
     setShipments(filtered)
-    //setShipments((prev) => [...prev, mutated])
-
-    //console.log("F", filtered)
   }
   const handleDisabled = (e) => {
     e.preventDefault()
     if (!disabled) {
-      console.log("here")
       saveChanges()
     }
     setDisabled(!disabled)
@@ -90,18 +83,12 @@ const DetailsPanel = ({
   )
 }
 
-const ShipmentDetails = ({
-  entries,
-  disabled,
-  singleShipment,
-  mutated,
-  setMutated,
-}) => {
-  const handleChange = (e, key) => {
+const ShipmentDetails = ({ entries, disabled, singleShipment, setMutated }) => {
+  useEffect(() => {
     setMutated(singleShipment)
-    console.log("BEFORE", mutated)
+  }, [])
+  const handleChange = (e, key) => {
     setMutated((prev) => ({ ...prev, [key]: e.target.value }))
-    console.log("AFTER", mutated)
   }
   return (
     <Box sx={{ display: "flex", justifyContent: "center", width: 1000 }}>

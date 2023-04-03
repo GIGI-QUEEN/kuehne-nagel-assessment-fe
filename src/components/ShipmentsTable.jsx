@@ -9,11 +9,13 @@ import {
   tableCellClasses,
   TableBody,
   styled,
+  Alert,
 } from "@mui/material"
 import { SingleTableRow } from "./SingleTableRow"
 import { Box } from "@mui/system"
 import { DeleteModal } from "./DeleteModal"
 import DetailsPanel from "./DetailsPanel"
+import Error from "./Error"
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: "#292929",
@@ -27,12 +29,11 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }))
 
 const ShipmentsTable = () => {
-  const { shipments, setShipments } = useShipments()
+  const { shipments, setShipments, error } = useShipments()
   const [openDeleteModal, setOpenDeleteModal] = useState(false)
   const [singleShipment, setSingleShipment] = useState(null)
   const [openDetails, setOpenDetails] = useState(false)
-  //console.log(singleShipment)
-  //console.log(singleShipment)
+  if (error) return <Error error={error} />
   return (
     <Box>
       <TableContainer sx={{ maxHeight: 800 }}>
