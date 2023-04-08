@@ -72,7 +72,14 @@ const DetailsPanel = ({
             setMutated={setMutated}
           />
           <Box>
-            <Button onClick={() => setOpenDetails(false)}>close</Button>
+            <Button
+              onClick={(e) => {
+                setDisabled(true)
+                setOpenDetails(false)
+              }}
+            >
+              close
+            </Button>
             <Button onClick={(e) => handleDisabled(e)}>
               {disabled ? "change details" : "save changes"}
             </Button>
